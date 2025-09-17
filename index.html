@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video to HTML Card Converter</title>
+    <meta name="description" content="Convert video links to beautiful HTML cards with thumbnails and descriptions">
+    
+    <meta property="og:title" content="Video to HTML Card Converter">
+    <meta property="og:description" content="Convert video links to beautiful HTML cards with thumbnails and descriptions">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://ibb.co/67X3xfSV">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Video to HTML Card Converter">
+    <meta name="twitter:description" content="Convert video links to beautiful HTML cards with thumbnails and descriptions">
+    <meta name="twitter:site" content="@dualitedev">
+    <meta name="twitter:image" content="https://ibb.co/67X3xfSV">
+
+    <link rel="canonical" href="https://alpha.dualite.dev">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Video Card Converter",
+      "url": "https://alpha.dualite.dev",
+      "description": "Convert video links to beautiful HTML cards with thumbnails and descriptions",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Dualite Alpha"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Theme toggle button -->
+        <button id="cornerIcon" class="corner-icon" title="Toggle theme" aria-label="Toggle theme" aria-pressed="false" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <!-- Sun group -->
+                <g class="sun" fill="currentColor" stroke="none" transform="translate(0,0)">
+                    <circle cx="12" cy="12" r="4" />
+                    <g class="rays" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none">
+                        <path d="M12 1.5 L12 3.6" />
+                        <path d="M12 20.4 L12 22.5" />
+                        <path d="M1.5 12 L3.6 12" />
+                        <path d="M20.4 12 L22.5 12" />
+                        <path d="M4.1 4.1 L5.8 5.8" />
+                        <path d="M18.2 18.2 L19.9 19.9" />
+                        <path d="M4.1 19.9 L5.8 18.2" />
+                        <path d="M18.2 5.8 L19.9 4.1" />
+                    </g>
+                </g>
+                <!-- Moon group -->
+                <g class="moon" fill="currentColor" transform="translate(0,0)">
+                    <path d="M21 12.8A8.5 8.5 0 0 1 11.2 3 6.5 6.5 0 1 0 21 12.8z"/>
+                </g>
+            </svg>
+        </button>
+
+        <!-- Main content -->
+        <header class="header">
+            <h1 class="heading-title">Convert Video to HTML Cards</h1>
+            <div class="header-actions">
+                <button id="historyBtn" class="header-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v5h5"/>
+                        <path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/>
+                        <path d="M12 7v5l4 2"/>
+                    </svg>
+                    History
+                </button>
+                <button id="searchBtn" class="header-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    Search
+                </button>
+            </div>
+        </header>
+
+        <!-- History Modal -->
+        <div id="historyModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Generation History</h2>
+                    <button id="closeHistoryModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="historyList" class="history-list">
+                        <!-- History items will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Modal -->
+        <div id="searchModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Search Generations</h2>
+                    <button id="closeSearchModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="search-input-container">
+                        <input type="text" id="searchInput" placeholder="Search by title or description..." class="search-input">
+                        <button id="performSearch" class="search-submit-btn">Search</button>
+                    </div>
+                    <div id="searchResults" class="search-results">
+                        <!-- Search results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-container">
+            <section class="input-section">
+                <form id="cardForm" class="card-form">
+                    <div class="form-group">
+                        <label class="form-label highlight"><strong>VIDEO TYPE</strong></label>
+                        <select id="videoType" class="form-select">
+                            <option value="googledrive">Google Drive</option>
+                            <option value="youtube">YouTube</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Video Links (mandatory) *</label>
+                        <textarea id="videoLinks" class="form-textarea" rows="5" placeholder="Enter video links (one per line)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label highlight"><strong>IMAGE TYPE</strong></label> 
+                        <select id="imageType" class="form-select">
+                            <option value="googledrive">Google Drive</option>
+                            <option value="google">Google Direct Link</option>
+                            <option value="youtube">YouTube (auto)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Image Links (Optional for YouTube)</label>
+                        <textarea id="imageLinks" class="form-textarea" rows="5" placeholder="Enter image links (one per line)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Titles (one per line) *</label>
+                        <textarea id="titles" class="form-textarea" rows="5" placeholder="Enter titles for each video"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Descriptions (one per line) *</label>
+                        <textarea id="descriptions" class="form-textarea" rows="5" placeholder="Enter descriptions for each video"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" id="generateBtn" class="generate-btn">Generate & Auto-Save Cards</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="output-section">
+                <div class="output-header">
+                    <h2>Generated HTML</h2>
+                    <button class="copy-btn" id="copyBtn">Copy HTML</button>
+                </div>
+                <pre id="codeOutput" class="code-output">Click "Generate & Auto-Save Cards" to see output here...</pre>
+                
+                <div class="preview-section">
+                    <h3>Preview</h3>
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Generated cards will appear here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading indicator -->
+        <div id="loadingIndicator" class="loading-indicator hidden">
+            <div class="loading-spinner"></div>
+            <span>Processing...</span>
+        </div>
+
+        <!-- Toast notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
