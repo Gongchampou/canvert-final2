@@ -1,0 +1,15 @@
+# Netlify configuration file
+# This file tells Netlify how to build and deploy your site.
+
+[build]
+  # This command is run to build your site.
+  command = "yarn build"
+  
+  # This is the directory that contains the built site.
+  publish = "dist"
+
+[build.environment]
+  # IMPORTANT: You still need to set these environment variables in the
+  # Netlify UI under Site settings > Build & deploy > Environment.
+  # VITE_SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL"
+  # VITE_SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"

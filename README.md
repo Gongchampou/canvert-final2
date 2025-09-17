@@ -75,9 +75,11 @@ To manage your project with Git and push it to a remote repository like GitHub:
 
 ## 🚀 Deployment Instructions
 
-This project is built with Vite, which produces a static site ready for deployment.
+This project is built with Vite and is configured for seamless deployment to Netlify and Cloudflare Pages.
 
 ### Deploying to Netlify
+
+This repository includes a `netlify.toml` file, which automatically configures the build settings for you.
 
 1.  **Prerequisites**:
     *   A Netlify account.
@@ -86,14 +88,12 @@ This project is built with Vite, which produces a static site ready for deployme
 2.  **Steps**:
     *   Log in to your Netlify dashboard.
     *   Click **"Add new site"** -> **"Import an existing project"**.
-    *   Connect to your Git provider (e.g., GitHub) and select your repository.
-    *   Configure the build settings:
-        *   **Build command**: `yarn build` or `vite build`
-        *   **Publish directory**: `dist`
-    *   Before deploying, go to **"Site settings"** -> **"Build & deploy"** -> **"Environment"**. Add your environment variables:
+    *   Connect to your Git provider and select your repository.
+    *   Netlify will read the `netlify.toml` file and automatically set the **Build command** to `yarn build` and the **Publish directory** to `dist`. You don't need to change anything.
+    *   **Crucially**, you must add your environment variables. Go to **"Site settings"** -> **"Build & deploy"** -> **"Environment"**. Add your Supabase credentials:
         *   `VITE_SUPABASE_URL`: `YOUR_SUPABASE_PROJECT_URL`
         *   `VITE_SUPABASE_ANON_KEY`: `YOUR_SUPABASE_ANON_KEY`
-    *   Go back to the deploy screen and click **"Deploy site"**. Netlify will build and deploy your project.
+    *   Click **"Deploy site"**. Netlify will now build and deploy your project correctly.
 
 ### Deploying to Cloudflare Pages
 
@@ -102,11 +102,10 @@ This project is built with Vite, which produces a static site ready for deployme
     *   Your project pushed to a GitHub or GitLab repository.
 
 2.  **Steps**:
-    *   Log in to your Cloudflare dashboard.
-    *   Navigate to **"Workers & Pages"** from the sidebar.
+    *   Log in to your Cloudflare dashboard and navigate to **"Workers & Pages"**.
     *   Click **"Create application"** -> **"Pages"** -> **"Connect to Git"**.
     *   Select your project repository.
-    *   In the "Set up builds and deployments" section, Cloudflare should detect Vite. If not, use the following configuration:
+    *   In the "Set up builds and deployments" section, use the following configuration:
         *   **Framework preset**: `Vite`
         *   **Build command**: `vite build`
         *   **Build output directory**: `dist`
